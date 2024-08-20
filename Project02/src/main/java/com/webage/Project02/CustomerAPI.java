@@ -3,6 +3,7 @@ package com.webage.Project02;
 import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,4 +32,16 @@ public class CustomerAPI {
 
         return response;
     }    
+
+    @GetMapping("/{id}")
+    public String getCustomersByID(@PathVariable long id){
+        for(int i = 0; i < customerList.size(); i++){
+            Customer customer = customerList.get(i);
+            if(customer.getId() == id){
+                return customer.toJSON();
+            }
+        }
+
+        return "Customer not found";
+    }   
 }
