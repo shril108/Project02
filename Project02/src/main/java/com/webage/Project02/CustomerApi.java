@@ -24,7 +24,7 @@ public String getAllCustomers(){
 
 }
 
-@GetMapping("/api/customers{cust-id}")
+@GetMapping("/{id}")
 public String getCustomerByID(@PathVariable int id){
 
     Customer[] temp = new Customer[1];
@@ -39,13 +39,13 @@ public String toJson(Customer[] customerArray){
 
     String json = "[";
 
-    for(int index = 0; index < customerArray.length - 1; index++){
-        json = "{\"id\": \"" + customerArray[index].id + "\",";
+    for(int index = 0; index < customerArray.length; index++){
+        json += "{\"id\": \"" + customerArray[index].id + "\",";
         json += "\"name\": \"" + customerArray[index].name + "\",";
         json += "\"email\": \"" + customerArray[index].email + "\",";
         json += "\"password\": \"" + customerArray[index].password + "\"}";
 
-        if(index < customerArray.length){
+        if(index < customerArray.length - 1){
             json+= ",";  
         }
     }
