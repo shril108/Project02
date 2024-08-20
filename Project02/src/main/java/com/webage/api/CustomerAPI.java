@@ -41,7 +41,6 @@ public class CustomerAPI {
 
     @PostMapping
 	public ResponseEntity<?> addCustomer(@RequestBody Customer newCustomer, UriComponentsBuilder uri) {
-        System.out.println(newCustomer);
 		if (newCustomer.getId() != 0 || newCustomer.getName() == null || newCustomer.getEmail() == null) {
 			// Reject we'll assign the customer id
 			return ResponseEntity.badRequest().build();
@@ -57,8 +56,6 @@ public class CustomerAPI {
 	public ResponseEntity<?> putCustomer(
 			@RequestBody Customer newCustomer,
 			@PathVariable("customerId") long customerId) {
-
-            System.out.println(newCustomer);
 		if (newCustomer.getId() != customerId || newCustomer.getName() == null || newCustomer.getEmail() == null) {
 			return ResponseEntity.badRequest().build();
 		}
