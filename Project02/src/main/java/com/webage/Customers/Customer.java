@@ -1,16 +1,33 @@
-package com.webage.Project02;
+package com.webage.Customers;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name="CUSTOMERS")
 public class Customer {
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     long id;
+
+    @Column(name="CUSTOMER_NAME")
 	String name;
+
+    @Column(name="PASSWORD")
 	String password;
+
+    @Column(name="EMAIL")
 	String email;
 
-	
-	
-	public Customer(long id, String name, String password, String email) {
+    public Customer(){
+        super();
+    }
+
+	public Customer(String name, String password, String email) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.email = email;
@@ -22,8 +39,6 @@ public class Customer {
         "\", \"password\":\"" + this.password + 
         "\", \"email\":\"" + this.email + "\" }";
     }
-
-
 
     public long getId() {
         return id;
