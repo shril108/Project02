@@ -50,6 +50,7 @@ function App() {
             isCustomerSelected={isCustomerSelected}
             colorPicked={colorPicked}
             setColor={setColor}
+            getCustomers={() => getCustomers()}
           />}
           />
 

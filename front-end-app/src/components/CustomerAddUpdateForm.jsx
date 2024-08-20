@@ -82,6 +82,7 @@ const CustomerAddUpdateForm = (props) => {
     setEmail('');
     setPassword('');
     navigate("/");
+    getCustomers();
   }
 
   return (

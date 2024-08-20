@@ -10,7 +10,8 @@ const CustomerList = (props) => {
     customerSelectedID,
     colorPicked,
     setColor,
-    isCustomerSelected
+    isCustomerSelected,
+    getCustomers
   } = props
 
   const [page, setPage] = useState(1);
@@ -43,7 +44,7 @@ const CustomerList = (props) => {
   }
 
   useEffect(() => {
-    getAll();
+    getCustomers();
   });
 
   return (
