@@ -29,9 +29,8 @@ public String getCustomerByID(@PathVariable int id){
 
     Customer[] temp = new Customer[1];
     temp[0] = customers[id];
-    return toJson(temp);
-
-
+    String json = toJson(temp);
+    return json.substring(1, json.length() - 1);
 
 }
 
