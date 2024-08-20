@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { getAll } from '../restdb';
 
 const CustomerList = (props) => {
   const {
@@ -40,6 +41,10 @@ const CustomerList = (props) => {
   const clearSearch = () => {
     setSearchText('');
   }
+
+  useEffect(() => {
+    getAll();
+  });
 
   return (
     <div className='container'>
