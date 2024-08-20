@@ -53,7 +53,7 @@ const CustomerAddUpdateForm = (props) => {
 
     deleteById(customerSelectedID);
     await clearSelection();
-    await getCustomers();
+    getCustomers();
   }
 
   const onSaveClick = async () => {
@@ -72,7 +72,7 @@ const CustomerAddUpdateForm = (props) => {
 
     await clearSelection();
 
-    await getCustomers();
+    getCustomers();
   }
   
   const clearSelection = () => {
