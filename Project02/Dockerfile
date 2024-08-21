@@ -1,4 +1,7 @@
-# Backend Dockerfile
+#Backend Dockerfile
+#Commands to Run: 
+#docker build -t project-02 .
+#docker run -d -p 8080:8080 project-02
 
 # Stage 1: Build the Spring Boot application
 FROM gradle:7.6.0-jdk17 AS build

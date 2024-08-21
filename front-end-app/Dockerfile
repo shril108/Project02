@@ -1,3 +1,7 @@
+#Commands to run 
+#docker build -t front-end-app .
+#docker run -d -p 3000:3000 front-end-app
+
 # Start your image with a node base image
 FROM node:18-alpine
 

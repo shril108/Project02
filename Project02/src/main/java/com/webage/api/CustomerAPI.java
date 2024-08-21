@@ -24,7 +24,7 @@ import com.webage.repository.CustomersRepository;
 
 @RestController
 @RequestMapping("/api/customers")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CustomerAPI {
     @Autowired
 	CustomersRepository repo;

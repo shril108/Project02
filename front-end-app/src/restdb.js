@@ -35,6 +35,7 @@ export async function getAll(setCustomers){
                 throw new Error(`Error fetching data: ${response.status}`);
             }
             const data = await response.json();
+            
             setCustomers([...data])
         } catch (error) {
             console.error(errror)
