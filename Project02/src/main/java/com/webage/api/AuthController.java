@@ -37,11 +37,7 @@ public class AuthController {
 	public ResponseEntity<?> createTokenForCustomer(@RequestBody Customer customer) {
 		
 		String username = customer.getEmail();
-		String password = customer.getPassword();
-        String name = customer.getName();
-        Customer tempCustomer = new Customer(name, password, username);
-        repo.save(tempCustomer);
-      
+		String password = customer.getPassword();      
 
         String res = "";
         res = getCustomerByNameFromCustomerAPI(username);
