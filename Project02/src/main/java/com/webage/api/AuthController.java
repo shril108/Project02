@@ -5,9 +5,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,55 +15,76 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.webage.Objects.Customer;
 import com.webage.Objects.Token;
+import com.webage.repository.CustomersRepository;
 import com.webage.JWTMaker;
 
 
 @RestController
+@RequestMapping("/token")
 public class AuthController {
 
    public static Token appUserToken;
+
+   @Autowired
+   CustomersRepository repo;
 	
 	@PostMapping
-	// public ResponseEntity<?> createTokenForCustomer(@RequestBody Customer customer, HttpRequest request, UriComponentsBuilder uri) {
 	public ResponseEntity<?> createTokenForCustomer(@RequestBody Customer customer) {
 		
-		String username = customer.getName();
+		String username = customer.getEmail();
 		String password = customer.getPassword();
+        String name = customer.getName();
+        Customer tempCustomer = new Customer(name, password, username);
+        repo.save(tempCustomer);
+      
+
         String res = "";
         res = getCustomerByNameFromCustomerAPI(username);
         System.out.println(res);
-		// && checkPassword(username, password)
-		if (username != null && username.length() > 0 && password != null && password.length() > 0) {
+		if (username != null && username.length() > 0 && password != null && password.length() > 0 && checkPassword(username, password)) {
 			Token token = createToken(username);
 			ResponseEntity<?> response = ResponseEntity.ok(token);
 			return response;			
 		}
 		// bad request
+        
 		return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		
 	}
 	
-	// private boolean checkPassword(String username, String password) {
-	// 	// special case for application user
-	// 	if(username.equals("ApiClientApp") && password.equals("secret")) {
-	// 		return true;
-	// 	}
-	// 	// make call to customer service 
-	// 	Customer cust = getCustomerByNameFromCustomerAPI(username);
+	private boolean checkPassword(String username, String password) {
+		// special case for application user
+		if(username.equals("ApiClientApp") && password.equals("secret")) {
+			return true;
+		}
+		// make call to customer service 
+		String temp = getCustomerByNameFromCustomerAPI(username);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Customer cust = null;
+
+        try{
+            cust = objectMapper.readValue(temp, Customer.class);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        
+
 		
-	// 	// compare name and password
-	// 	if(cust != null && cust.getName().equals(username) && cust.getPassword().equals(password)) {
-	// 		return true;				
-	// 	}		
-	// 	return false;
+		// compare name and password
+		if(cust != null && cust.getName().equals(username) && cust.getPassword().equals(password)) {
+			return true;				
+		}		
+		return false;
 		
 		
 
-	// }
+	}
 	
 	public static Token getAppUserToken() {
 		if(appUserToken == null || appUserToken.getToken() == null || appUserToken.getToken().length() == 0) {
@@ -88,7 +109,7 @@ public class AuthController {
 	private String getCustomerByNameFromCustomerAPI(String username) {
 		try {
 
-			URL url = new URL("http://localhost:8080/api/customers/byname/" + username);
+			URL url = new URL("http://localhost:8080/api/customers/" + username);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
