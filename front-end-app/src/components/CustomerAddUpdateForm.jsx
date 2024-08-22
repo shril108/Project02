@@ -65,16 +65,22 @@ const CustomerAddUpdateForm = (props) => {
       'password': password,
     }
 
-    if(isCustomerSelected){
-      customer.id = customerSelectedID;
-      put(customerSelectedID, customer);
-    } else {
-      post(customer);
+    try {
+      if(isCustomerSelected){
+        customer.id = customerSelectedID;
+        put(customerSelectedID, customer);
+      } else {
+        post(customer);
+      }
+
+      clearSelection();
+
+      getCustomers();
+    } catch (exception) {
+      
+      
     }
-
-    await clearSelection();
-
-    getCustomers();
+    
   }
   
   const clearSelection = () => {
