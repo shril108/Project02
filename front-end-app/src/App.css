@@ -225,3 +225,7 @@ input[type=number] {
 .register {
   color: #0077b6;
 }
+
+.error {
+  color: red;
+}
