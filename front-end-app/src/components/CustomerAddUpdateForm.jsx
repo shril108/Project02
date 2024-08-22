@@ -5,7 +5,8 @@ import {
   put,
   deleteById
 } from '../restdb'
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import Header from './Header';
 
 const CustomerAddUpdateForm = (props) => {
   const {
@@ -87,7 +88,7 @@ const CustomerAddUpdateForm = (props) => {
 
   return (
     <div className='container'>
-        <h1 className='title'>{isCustomerSelected ? 'Update' : 'Add'}</h1>
+        <h1 className='title'>{isCustomerSelected ? 'Update' : 'Add'}<Link to={'/login'}><button className='form-button login'>Login/Sign Up</button></Link></h1>
         <div className='form'>
           <div className="input-group">
             <div className='label'>Name: </div>

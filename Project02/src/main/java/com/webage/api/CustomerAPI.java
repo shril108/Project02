@@ -22,29 +22,49 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.webage.Customers.Customer;
 import com.webage.repository.CustomersRepository;
 
+import jakarta.annotation.PostConstruct;
+
 @RestController
 @RequestMapping("/api/customers")
 @CrossOrigin(origins = "http://localhost:3000")
 public class CustomerAPI {
-    @Autowired
+	@Autowired
 	CustomersRepository repo;
+
+	@PostConstruct
+	public void init() {
+		Customer customer1 = new Customer("Kenan", "password1", "email1");
+		Customer customer2 = new Customer("Shril", "password2", "email2");
+		Customer customer3 = new Customer("Ryan", "password3", "email3");
+		repo.save(customer1);
+		repo.save(customer2);
+		repo.save(customer3);
+	}
+
+	
 
 	@GetMapping
 	public Iterable<Customer> getAll() {
 		return repo.findAll();
 	}
 
-    @GetMapping("/{customerId}")
+	@GetMapping("/{customerId}")
 	public Optional<Customer> getCustomerById(@PathVariable("customerId") long id) {
 		return repo.findById(id);
 	}
 
-    @PostMapping
+	@PostMapping
 	public ResponseEntity<?> addCustomer(@RequestBody Customer newCustomer, UriComponentsBuilder uri) {
 		if (newCustomer.getId() != 0 || newCustomer.getName() == null || newCustomer.getEmail() == null) {
 			// Reject we'll assign the customer id
 			return ResponseEntity.badRequest().build();
 		}
+
+		///Added by me :)
+		if (repo.findByEmail(newCustomer.getEmail()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already in use");
+        }
+
 		newCustomer = repo.save(newCustomer);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newCustomer.getId()).toUri();
@@ -52,7 +72,7 @@ public class CustomerAPI {
 		return response;
 	}
 
-    @PutMapping("/{customerId}")
+	@PutMapping("/{customerId}")
 	public ResponseEntity<?> putCustomer(
 			@RequestBody Customer newCustomer,
 			@PathVariable("customerId") long customerId) {
@@ -61,8 +81,8 @@ public class CustomerAPI {
 		}
 		newCustomer = repo.save(newCustomer);
 		return ResponseEntity.ok().build();
-	}	
-	
+	}
+
 	@DeleteMapping("/{customerId}")
 	public ResponseEntity<?> deleteCustomerById(@PathVariable("customerId") long id) {
 		// repo.delete(id);

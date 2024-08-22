@@ -1,3 +1,3 @@
-insert into CUSTOMERS (CUSTOMER_NAME, PASSWORD, EMAIL) VALUES ('Kenan', 'pass', 'kenan@database.com');
-insert into CUSTOMERS (CUSTOMER_NAME, PASSWORD, EMAIL) VALUES ('Ryan', 'pass', 'ryan@database.com');
-insert into CUSTOMERS (CUSTOMER_NAME, PASSWORD, EMAIL) VALUES ('Shril', 'pass', 'shril@database.com');
+insert into CUSTOMERS (CUSTOMER_NAME, PASSWORD, EMAIL) VALUES ('Bruce', 'pass', 'bruce@a.com');
+insert into CUSTOMERS (CUSTOMER_NAME, PASSWORD, EMAIL) VALUES ('Paul', 'pass', 'paul@b.com');
+insert into CUSTOMERS (CUSTOMER_NAME, PASSWORD, EMAIL) VALUES ('Rick', 'pass', 'rick@c.com');
