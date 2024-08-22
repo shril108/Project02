@@ -93,11 +93,11 @@ export async function post(item) {
         try {
             const response = await fetch(url, options);
             if (!response.ok){
-                throw new Error(`Error fetching data: ${response.status}`);
+                alert('There is already a user with that email. Exiting...');
             }
             const data = await response.json();
         } catch (error) {
-            console.error(errror)
+            console.error(error)
         }
     }
     await postData(baseURL);
@@ -118,11 +118,11 @@ export async function put(id, item) {
         try {
             const response = await fetch(`${url}/${id}`, options);
             if (!response.ok){
-                throw new Error(`Error fetching data: ${response.status}`);
+                alert('There is already a user with that email. Exiting...');
             }
             const data = await response.json();
         } catch (error) {
-            console.error(errror)
+            console.error(error)
         }
     }
     await putData(baseURL);
