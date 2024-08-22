@@ -26,16 +26,16 @@ import jakarta.annotation.PostConstruct;
 
 @RestController
 @RequestMapping("/api/customers")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:5173")
 public class CustomerAPI {
 	@Autowired
 	CustomersRepository repo;
 
 	@PostConstruct
 	public void init() {
-		Customer customer1 = new Customer("Kenan", "password1", "email1");
-		Customer customer2 = new Customer("Shril", "password2", "email2");
-		Customer customer3 = new Customer("Ryan", "password3", "email3");
+		Customer customer1 = new Customer("Kenan", "password1", "email1@email.com");
+		Customer customer2 = new Customer("Shril", "password2", "email2@email.com");
+		Customer customer3 = new Customer("Ryan", "password3", "email3@email.com");
 		repo.save(customer1);
 		repo.save(customer2);
 		repo.save(customer3);

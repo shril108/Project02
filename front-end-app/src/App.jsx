@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 
 import {
   getAll,
-} from './restdb'
+} from './handlers/customerAPIHandler'
 import LoginScreen from './components/LoginScreen';
 import Register from './components/Register';
 
@@ -14,6 +14,8 @@ function App() {
   const [customerList, setCustomerList] = useState([{'id': 1, name: 'Connect API', email: 'Connect API', password: 'Connect API'}]);
   const [customerSelectedID, setCustomerSelectedID] = useState(-1);
   const [isCustomerSelected, setIsCustomerSelected] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [loggedInName, setLoggedInName] = useState('');
   
   const selectCustomer = (item) => {
     setCustomerSelectedID((prevState) => {
@@ -42,36 +44,44 @@ function App() {
   return (
     <Router>
       <div className='wrapper'>
+        {isAuthorized ? 
+          <Routes>
+            <Route exact path="/" element={<Navigate to="/customer" />}/>
+            <Route path='/customer' element={
+            <CustomerList 
+              customerList={customerList} 
+              selectCustomer={(id) => selectCustomer(id)} 
+              customerSelectedID={customerSelectedID}
+              isCustomerSelected={isCustomerSelected}
+              colorPicked={colorPicked}
+              setColor={setColor}
+              getCustomers={() => getCustomers()}
+              setIsAuthorized={setIsAuthorized}
+              loggedInName={loggedInName}
+            />}
+            />
 
-        <Routes>
-          <Route exact path="/" element={<Navigate to="/customer" />}/>
-          <Route path='/customer' element={
-          <CustomerList 
-            customerList={customerList} 
-            selectCustomer={(id) => selectCustomer(id)} 
-            customerSelectedID={customerSelectedID}
-            isCustomerSelected={isCustomerSelected}
-            colorPicked={colorPicked}
-            setColor={setColor}
-            getCustomers={() => getCustomers()}
-          />}
-          />
-
-          <Route path='/form' element={<CustomerAddUpdateForm
-            isCustomerSelected={isCustomerSelected}
-            customerSelectedID={customerSelectedID}
-            customerList={customerList}
-            getCustomers={() => getCustomers()}
-            setCustomerSelectedID={setCustomerSelectedID}
-            setIsCustomerSelected={setIsCustomerSelected}
-            colorPicked={colorPicked}
-              />}
-          />
-
-          <Route path='/login' element={<LoginScreen/>}/>
-          <Route path='/register' element={<Register/>}/>
-          <Route path="*" element={<Navigate to="/" />}/>
-        </Routes>
+            <Route path='/form' element={<CustomerAddUpdateForm
+              isCustomerSelected={isCustomerSelected}
+              customerSelectedID={customerSelectedID}
+              customerList={customerList}
+              getCustomers={() => getCustomers()}
+              setCustomerSelectedID={setCustomerSelectedID}
+              setIsCustomerSelected={setIsCustomerSelected}
+              colorPicked={colorPicked}
+              setIsAuthorized={setIsAuthorized}
+                />}
+            />
+            <Route path="*" element={<Navigate to="/" />}/>
+          </Routes>
+        : 
+          <Routes>
+            <Route exact path="/" element={<Navigate to="/login" />}/>
+            <Route path='/login' element={<LoginScreen setIsAuthorized={setIsAuthorized} setLoggedInName={setLoggedInName}/>}/>
+            <Route path='/register' element={<Register/>}/>
+            <Route path="*" element={<Navigate to="/" />}/>
+          </Routes>
+        }
       </div>
     </Router>
   )

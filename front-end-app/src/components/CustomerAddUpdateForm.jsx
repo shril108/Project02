@@ -4,7 +4,7 @@ import {
   post,
   put,
   deleteById
-} from '../restdb'
+} from '../handlers/customerAPIHandler'
 import { useNavigate, Link } from "react-router-dom";
 import Header from './Header';
 
@@ -16,7 +16,8 @@ const CustomerAddUpdateForm = (props) => {
     getCustomers,
     setCustomerSelectedID,
     setIsCustomerSelected,
-    colorPicked
+    colorPicked,
+    setIsAuthorized
   } = props
   
   const navigate = useNavigate();
@@ -88,7 +89,7 @@ const CustomerAddUpdateForm = (props) => {
 
   return (
     <div className='container'>
-        <h1 className='title'>{isCustomerSelected ? 'Update' : 'Add'}<Link to={'/login'}><button className='form-button login'>Login/Sign Up</button></Link></h1>
+        <h1 className='title'>{isCustomerSelected ? 'Update' : 'Add'}<button className='form-button login' onClick={() => setIsAuthorized(false)}>Log out</button></h1>
         <div className='form'>
           <div className="input-group">
             <div className='label'>Name: </div>
