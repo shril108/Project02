@@ -59,6 +59,12 @@ public class CustomerAPI {
 			// Reject we'll assign the customer id
 			return ResponseEntity.badRequest().build();
 		}
+
+		///Added by me :)
+		if (repo.findByEmail(newCustomer.getEmail()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already in use");
+        }
+
 		newCustomer = repo.save(newCustomer);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newCustomer.getId()).toUri();

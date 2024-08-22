@@ -15,7 +15,7 @@ import com.webage.Customers.Customer;
 import com.webage.repository.CustomersRepository;
 
 @RestController
-@RequestMapping("/account/")
+@RequestMapping("/account")
 @CrossOrigin(origins = "http://localhost:3000")
 public class LoginAPI {
     @Autowired
@@ -24,7 +24,6 @@ public class LoginAPI {
     @PostMapping("/token")
 	public ResponseEntity<?> login(@RequestBody Customer loginCustomer) {
 		Optional<Customer> existingCustomer = repo.findByEmail(loginCustomer.getEmail());
-
 		if (existingCustomer.isPresent()) {
 			Customer customer = existingCustomer.get();
 			if (customer.getPassword().equals(loginCustomer.getPassword())) {
