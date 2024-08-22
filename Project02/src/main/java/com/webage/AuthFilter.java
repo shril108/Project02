@@ -1,4 +1,4 @@
-package com.webage.filter;
+package com.webage;
 
 import java.io.IOException;
 
@@ -14,8 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.webage.logging.ApiLogger;
-import com.webage.util.JWTHelper;
+import com.webage.JWTMaker;
 
 @Component
 @Order(1)
@@ -56,8 +55,8 @@ public class AuthFilter implements Filter{
 			String authheader = req.getHeader("authorization");
 			if(authheader != null && authheader.length() > 7 && authheader.startsWith("Bearer")) {
 				String jwt_token = authheader.substring(7, authheader.length());
-				if(JWTHelper.verifyToken(jwt_token)) {
-					String request_scopes = JWTHelper.getScopes(jwt_token);
+				if(JWTMaker.verifyToken(jwt_token)) {
+					String request_scopes = JWTMaker.getScopes(jwt_token);
 					if(request_scopes.contains(api_scope) || request_scopes.contains(auth_scope)) {
 						chain.doFilter(request, response);
 						return;
@@ -70,26 +69,7 @@ public class AuthFilter implements Filter{
 
 	}
 	
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		ApiLogger.log("AuthFilter.init");
-		
-	}
 
-	@Override
-	public void destroy() {
-		ApiLogger.log("AuthFilter.destroy");	
-	}
-
-	/*
-	 * public boolean verifyToken(String token) { try {
-	 * Jwts.parser().setSigningKey(key).parseClaimsJws(token); return true; } catch
-	 * (JwtException e) { return false; } }
-	 * 
-	 * public String getScopes(String token) { try { Claims claims =
-	 * Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody(); String
-	 * scopes = claims.get("scopes", String.class); return scopes; } catch
-	 * (JwtException e) { return null; } }
-	 */	
+	
 	
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.webage.Customers.Customer;
+import com.webage.Objects.Customer;
 import com.webage.repository.CustomersRepository;
 
 import jakarta.annotation.PostConstruct;
