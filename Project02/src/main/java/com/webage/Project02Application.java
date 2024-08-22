@@ -1,4 +1,4 @@
-package com.webage.Project02;
+package com.webage;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
