@@ -41,7 +41,6 @@ public class AuthController {
 
         String res = "";
         res = getCustomerByNameFromCustomerAPI(username);
-        System.out.println(res);
 		if (username != null && username.length() > 0 && password != null && password.length() > 0 && checkPassword(username, password)) {
 			Token token = createToken(username);
 			ResponseEntity<?> response = ResponseEntity.ok(token);
@@ -122,6 +121,7 @@ public class AuthController {
 				while ((out = br.readLine()) != null) {
 					output += out;
 				}
+				output = "{"+output.substring(8);
 				conn.disconnect();
 				return output;
 			}
