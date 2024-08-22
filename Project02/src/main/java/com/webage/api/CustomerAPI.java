@@ -33,9 +33,6 @@ public class CustomerAPI {
 
 	@PostConstruct
 	public void init() {
-		Customer customer1 = new Customer("Kenan", "password1", "email1@email.com");
-		Customer customer2 = new Customer("Shril", "password2", "email2@email.com");
-		Customer customer3 = new Customer("Ryan", "password3", "email3@email.com");
 		Customer customer1 = new Customer("Kenan", "password1", "email1@gmail.com");
 		Customer customer2 = new Customer("Shril", "password2", "email2@gmail.com");
 		Customer customer3 = new Customer("Ryan", "password3", "email3@gmail.com");
