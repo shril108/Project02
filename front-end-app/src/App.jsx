@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import CustomerList from './components/CustomerList';
 import CustomerAddUpdateForm from './components/CustomerAddUpdateForm';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 
 import {
   getAll,
 } from './restdb'
+import LoginScreen from './components/LoginScreen';
+import Register from './components/Register';
 
 function App() {
   const [customerList, setCustomerList] = useState([{'id': 1, name: 'Connect API', email: 'Connect API', password: 'Connect API'}]);
@@ -42,7 +44,8 @@ function App() {
       <div className='wrapper'>
 
         <Routes>
-          <Route path='/' element={
+          <Route exact path="/" element={<Navigate to="/customer" />}/>
+          <Route path='/customer' element={
           <CustomerList 
             customerList={customerList} 
             selectCustomer={(id) => selectCustomer(id)} 
@@ -65,6 +68,9 @@ function App() {
               />}
           />
 
+          <Route path='/login' element={<LoginScreen/>}/>
+          <Route path='/register' element={<Register/>}/>
+          <Route path="*" element={<Navigate to="/" />}/>
         </Routes>
       </div>
     </Router>
