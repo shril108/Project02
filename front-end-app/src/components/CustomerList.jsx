@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getAll } from '../restdb';
+import { getAll } from '../handlers/customerAPIHandler';
 
 const CustomerList = (props) => {
   const {
@@ -11,7 +11,9 @@ const CustomerList = (props) => {
     colorPicked,
     setColor,
     isCustomerSelected,
-    getCustomers
+    getCustomers,
+    setIsAuthorized,
+    loggedInName
   } = props
 
   const [page, setPage] = useState(1);
@@ -49,8 +51,9 @@ const CustomerList = (props) => {
 
   return (
     <div className='container'>
+        <h1 className='title'>Hello {loggedInName}!<button className='form-button login' onClick={() => setIsAuthorized(false)}>Log out</button></h1>
         <h1 className='title'>Team Redmond Frogs' Customer List
-        <Link to={'/login'}><button className='form-button login'>Login/Sign Up</button></Link>
+        
         </h1>
         <div className='search-bar-wrapper'>
 

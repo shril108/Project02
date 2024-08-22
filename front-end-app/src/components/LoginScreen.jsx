@@ -1,8 +1,15 @@
 import React from 'react'
 import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
+import { login } from '../handlers/loginAPIHandler';
 
-const LoginScreen = () => {
+const LoginScreen = (props) => {
+    const {
+        setIsAuthorized,
+        setLoggedInName
+    } = props;
+
+
     const [email, setEmail] = useState('');
     const changeEmail = (e) => setEmail(e.target.value);
     
@@ -11,9 +18,11 @@ const LoginScreen = () => {
 
     const [emailError, setEmailError] = useState(false);
 
+    const [loginResult, setLoginResult] = useState('');
+
     const navigate = useNavigate();
 
-    const loginValidationOnClick = () => {
+    const loginValidationOnClick = async () => {
         let errorsOccured = false;
 
         const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -30,6 +39,21 @@ const LoginScreen = () => {
             return;
         }
 
+        login({email: email, password: password}).then((loginResult)=> {
+            console.log(loginResult);
+            if (loginResult === 'Invalid email or password'){
+                alert(loginResult);
+                setIsAuthorized(false);
+                setLoggedInName('');
+            } else {
+                setIsAuthorized(true);
+                setLoggedInName(loginResult);
+                alert('Login Successful');
+                navigate('/');
+            }
+        });
+
+        
     };
 
   return (

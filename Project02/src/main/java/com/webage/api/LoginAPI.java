@@ -16,7 +16,7 @@ import com.webage.repository.CustomersRepository;
 
 @RestController
 @RequestMapping("/account")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:5173")
 public class LoginAPI {
     @Autowired
     CustomersRepository repo;
@@ -27,10 +27,11 @@ public class LoginAPI {
 		if (existingCustomer.isPresent()) {
 			Customer customer = existingCustomer.get();
 			if (customer.getPassword().equals(loginCustomer.getPassword())) {
-				return ResponseEntity.ok().body("Login successful");
+				String response = "{\"text\":\"" + customer.getName() + "\"}";
+				return ResponseEntity.ok().body(response);
 			}
 		}
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+		return ResponseEntity.ok().body("{\"text\": \"Invalid email or password\"}");
 	}
     
 }
