@@ -93,7 +93,9 @@ export async function post(item) {
         try {
             const response = await fetch(url, options);
             if (!response.ok){
-                alert('There is already a user with that email. Exiting...');
+                alert('There is already a user with that email. Try Again');
+            } else {
+                alert('Created user')
             }
             const data = await response.json();
         } catch (error) {
@@ -118,7 +120,9 @@ export async function put(id, item) {
         try {
             const response = await fetch(`${url}/${id}`, options);
             if (!response.ok){
-                alert('There is already a user with that email. Exiting...');
+                alert('There is already a user with that email. Try Again');
+            } else {
+                alert('Updated customer')
             }
             const data = await response.json();
         } catch (error) {
