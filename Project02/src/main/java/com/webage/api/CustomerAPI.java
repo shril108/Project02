@@ -33,15 +33,13 @@ public class CustomerAPI {
 
 	@PostConstruct
 	public void init() {
-		Customer customer1 = new Customer("Kenan", "password1", "email1");
-		Customer customer2 = new Customer("Shril", "password2", "email2");
-		Customer customer3 = new Customer("Ryan", "password3", "email3");
+		Customer customer1 = new Customer("Kenan", "password1", "email1@gmail.com");
+		Customer customer2 = new Customer("Shril", "password2", "email2@gmail.com");
+		Customer customer3 = new Customer("Ryan", "password3", "email3@gmail.com");
 		repo.save(customer1);
 		repo.save(customer2);
 		repo.save(customer3);
 	}
-
-	
 
 	@GetMapping
 	public Iterable<Customer> getAll() {
@@ -59,12 +57,9 @@ public class CustomerAPI {
 			// Reject we'll assign the customer id
 			return ResponseEntity.badRequest().build();
 		}
-
-		///Added by me :)
 		if (repo.findByEmail(newCustomer.getEmail()).isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already in use");
+            return ResponseEntity.badRequest().build();
         }
-
 		newCustomer = repo.save(newCustomer);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newCustomer.getId()).toUri();
@@ -79,6 +74,9 @@ public class CustomerAPI {
 		if (newCustomer.getId() != customerId || newCustomer.getName() == null || newCustomer.getEmail() == null) {
 			return ResponseEntity.badRequest().build();
 		}
+		if (repo.findByEmail(newCustomer.getEmail()).isPresent()) {
+            return ResponseEntity.badRequest().build();
+        }
 		newCustomer = repo.save(newCustomer);
 		return ResponseEntity.ok().build();
 	}
