@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
+import { register } from '../handlers/loginAPIHandler';
 
 
 const Register = () => {
@@ -33,8 +34,6 @@ const Register = () => {
             errorsOccured = true;
             setEmailError(true);
         }
-
-        console.log(name.length);
         if (name.length > 0) {
             setNameLengthError(false);
         } else {
@@ -62,6 +61,12 @@ const Register = () => {
             return;
         }
 
+        try{
+          register({name: name, email: email, password: password});
+          navigate('/');
+        } catch (error){
+          console.error(error);
+        }
     };
 
   return (
