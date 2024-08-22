@@ -1,19 +1,17 @@
-package com.webage.Project02;
+package com.webage.api;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
-public class Api {
-
-
-@GetMapping
-public String healthCheck(){
-    return "API Responsive :)!!!";
-}
+@CrossOrigin
+@RequestMapping("/")
+public class AuthAPI {
 
 
     
+   
+
 }
