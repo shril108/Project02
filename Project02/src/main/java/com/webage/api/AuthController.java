@@ -30,8 +30,8 @@ public class AuthController {
 
    public static Token appUserToken;
 
-   @Autowired
-   CustomersRepository repo;
+	@Autowired
+	CustomersRepository repo;
 	
 	@PostMapping
 	public ResponseEntity<?> createTokenForCustomer(@RequestBody Customer customer) {
@@ -49,6 +49,7 @@ public class AuthController {
 		if (username != null && username.length() > 0 && password != null && password.length() > 0 && checkPassword(username, password)) {
 			Token token = createToken(username);
 			ResponseEntity<?> response = ResponseEntity.ok(token);
+			appUserToken = token;
 			return response;			
 		}
 		// bad request
@@ -64,7 +65,7 @@ public class AuthController {
 		}
 		// make call to customer service 
 		String temp = getCustomerByNameFromCustomerAPI(username);
-
+		System.out.println(temp);
         ObjectMapper objectMapper = new ObjectMapper();
         Customer cust = null;
 
@@ -109,7 +110,7 @@ public class AuthController {
 	private String getCustomerByNameFromCustomerAPI(String username) {
 		try {
 
-			URL url = new URL("http://localhost:8080/api/customers/" + username);
+			URL url = new URL("http://localhost:8080/api/customers/findbyemail/" + username);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");

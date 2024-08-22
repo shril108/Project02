@@ -49,11 +49,11 @@ public class CustomerAPI {
 	}
 
 	@GetMapping("/{customerId}")
-	public Optional<Customer> getCustomerById(@PathVariable("customerId") long id) {
+	public Optional<Customer> getCustomerById(@PathVariable("customerId") Long id) {
 		return repo.findById(id);
 	}
 
-	@GetMapping("/{email}")
+	@GetMapping("/findbyemail/{email}")
 	public Optional<Customer> getCustomerByEmail(@PathVariable("email") String email) {
 		return repo.findByEmail(email);
 	}
