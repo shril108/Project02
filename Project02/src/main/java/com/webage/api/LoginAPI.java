@@ -21,7 +21,7 @@ public class LoginAPI {
     @Autowired
     CustomersRepository repo;
 
-    @PostMapping("/login")
+    @PostMapping("/token")
 	public ResponseEntity<?> login(@RequestBody Customer loginCustomer) {
 		Optional<Customer> existingCustomer = repo.findByEmail(loginCustomer.getEmail());
 
