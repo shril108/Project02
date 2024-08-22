@@ -51,7 +51,7 @@ const CustomerList = (props) => {
 
   return (
     <div className='container'>
-        <h1 className='title'>Hello {loggedInName}!<button className='form-button login' onClick={() => setIsAuthorized(false)}>Log out</button></h1>
+        <h1 className='title'>Hello {loggedInName}!<button className='form-button login' onClick={() => {setIsAuthorized(false); localStorage.setItem('authorization', JSON.stringify(false))}}>Log out</button></h1>
         <h1 className='title'>Team Redmond Frogs' Customer List
         
         </h1>

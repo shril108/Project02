@@ -48,6 +48,8 @@ const LoginScreen = (props) => {
             } else {
                 setIsAuthorized(true);
                 setLoggedInName(loginResult);
+                localStorage.setItem('name', loginResult);
+                localStorage.setItem('authorization', JSON.stringify("true"));
                 alert('Login Successful');
                 navigate('/');
             }

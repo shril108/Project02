@@ -16,6 +16,12 @@ function App() {
   const [isCustomerSelected, setIsCustomerSelected] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [loggedInName, setLoggedInName] = useState('');
+
+  useEffect(() => {
+    setIsAuthorized(JSON.parse(localStorage.getItem('authorization')))
+    setLoggedInName(localStorage.getItem('name'));
+  }, []);
+
   
   const selectCustomer = (item) => {
     setCustomerSelectedID((prevState) => {

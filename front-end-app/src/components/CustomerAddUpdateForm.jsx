@@ -89,7 +89,7 @@ const CustomerAddUpdateForm = (props) => {
 
   return (
     <div className='container'>
-        <h1 className='title'>{isCustomerSelected ? 'Update' : 'Add'}<button className='form-button login' onClick={() => setIsAuthorized(false)}>Log out</button></h1>
+        <h1 className='title'>{isCustomerSelected ? 'Update' : 'Add'}<button className='form-button login' onClick={() => {setIsAuthorized(false); localStorage.setItem('authorization', JSON.stringify(false))}}>Log out</button></h1>
         <div className='form'>
           <div className="input-group">
             <div className='label'>Name: </div>
