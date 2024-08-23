@@ -26,7 +26,7 @@ import jakarta.annotation.PostConstruct;
 
 @RestController
 @RequestMapping("/api/customers")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CustomerAPI {
 	@Autowired
 	CustomersRepository repo;
@@ -79,9 +79,7 @@ public class CustomerAPI {
 		if (newCustomer.getId() != customerId || newCustomer.getName() == null || newCustomer.getEmail() == null) {
 			return ResponseEntity.badRequest().build();
 		}
-		if (repo.findByEmail(newCustomer.getEmail()).isPresent()) {
-            return ResponseEntity.badRequest().build();
-        }
+	
 		newCustomer = repo.save(newCustomer);
 		return ResponseEntity.ok().build();
 	}

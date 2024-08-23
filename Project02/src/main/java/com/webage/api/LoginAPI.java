@@ -20,7 +20,7 @@ import com.webage.repository.CustomersRepository;
 
 @RestController
 @RequestMapping("/account")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:3000")
 public class LoginAPI {
     @Autowired
     CustomersRepository repo;
